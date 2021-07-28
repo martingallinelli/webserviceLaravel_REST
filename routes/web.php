@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Support\Str;
-
 /** @var \Laravel\Lumen\Routing\Router $router */
 
 /*
@@ -15,26 +13,17 @@ use Illuminate\Support\Str;
 |
 */
 
-// INDEX
-    $router->get('/', function () use ($router) {
-        return $router->app->version();
-    });
+$router->get('/', function () use ($router) {
+    return $router->app->version();
+});
 
-// GENERAR CLAVE (prueba)
-    $router->get('/key', function() {
-        return Str::random(32);
-    });
+// GET
+$router->get('/libros', 'LibroController@index');
+$router->get('/libros/{id}', 'LibroController@show');
 
-// AUTENTICACION
-    $router->post('/users/login', ['uses' => 'UsersController@getToken']);
+// POST
+$router->post('/libros', 'LibroController@store');
+$router->post('/libros/{id}', 'LibroController@update');
 
-// USERS
-    // para acceder a estas rutas debes estar autenticado
-    $router->group(['middleware' => ['auth']], function() use ($router)
-    {
-        $router->get('/users', ['uses' => 'UsersController@getAll']);
-        $router->get('/users/{id}', ['uses' => 'UsersController@getUser']);
-        $router->post('/users', ['uses' => 'UsersController@createUser']);
-        $router->put('/users/{id}', ['uses' => 'UsersController@updateUser']);
-        $router->delete('/users/{id}', ['uses' => 'UsersController@deleteUser']);
-    });
+// DELETE
+$router->delete('/libros/{id}', 'LibroController@delete');
