@@ -1,5 +1,8 @@
 # **API**
 
+Web service to consult a directory of people, of which a name, an address and an image are stored.  
+Authentication is required to be able to make API calls.
+
 ## **MIGRATION**
 ### **-----( CREAR )**
 
